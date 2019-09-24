@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func ParseToNode(m *mecab.MeCab, input string) []string{
+func ParseToNode(m *mecab.MeCab, input string) []string {
 	words := []string{}
 	tg, err := m.NewTagger()
 	if err != nil {
@@ -36,7 +36,7 @@ func ParseToNode(m *mecab.MeCab, input string) []string{
 	return words
 }
 
-func GetMarkovBlocks(words []string)  [][]string{
+func GetMarkovBlocks(words []string) [][]string {
 	res := [][]string{}
 	resHead := []string{}
 	resEnd := []string{}
@@ -48,7 +48,7 @@ func GetMarkovBlocks(words []string)  [][]string{
 	resHead = []string{"#This is empty#", words[0], words[1]}
 	res = append(res, resHead)
 
-	for i := 1; i < len(words) - 2; i++ {
+	for i := 1; i < len(words)-2; i++ {
 		markovBlock := []string{words[i], words[i+1], words[i+2]}
 		res = append(res, markovBlock)
 	}
@@ -59,10 +59,10 @@ func GetMarkovBlocks(words []string)  [][]string{
 	return res
 }
 
-func FindBlocks(array [][]string, target string) [][]string{
+func FindBlocks(array [][]string, target string) [][]string {
 	blocks := [][]string{}
 	for _, s := range array {
-		if s[0] == target{
+		if s[0] == target {
 			blocks = append(blocks, s)
 		}
 	}
@@ -70,7 +70,7 @@ func FindBlocks(array [][]string, target string) [][]string{
 	return blocks
 }
 
-func ConnectBlocks(array [][]string, dist []string) []string{
+func ConnectBlocks(array [][]string, dist []string) []string {
 	rand.Seed((time.Now().Unix()))
 	i := 0
 
@@ -84,7 +84,7 @@ func ConnectBlocks(array [][]string, dist []string) []string{
 	return dist
 }
 
-func MarkovChainExec(array [][]string) []string{
+func MarkovChainExec(array [][]string) []string {
 	ret := []string{}
 	block := [][]string{}
 	count := 0
@@ -92,7 +92,7 @@ func MarkovChainExec(array [][]string) []string{
 	block = FindBlocks(array, "#This is empty#")
 	ret = ConnectBlocks(block, ret)
 
-	for ret[len(ret)-1] != "#This is empty#"{
+	for ret[len(ret)-1] != "#This is empty#" {
 		block = FindBlocks(array, ret[len(ret)-1])
 		if len(block) == 0 {
 			break
@@ -108,7 +108,7 @@ func MarkovChainExec(array [][]string) []string{
 	return ret
 }
 
-func TextGenerate(array []string) string{
+func TextGenerate(array []string) string {
 	ret := ""
 	for _, s := range array {
 		if s == "#This is empty#" {
@@ -122,10 +122,5 @@ func TextGenerate(array []string) string{
 		ret += s
 	}
 
-	fmt.Println(" ")
-	fmt.Println("----------------------------")
-	fmt.Println(ret)                                 // ターミナルでの生成文章確認用
-
 	return ret
 }
-

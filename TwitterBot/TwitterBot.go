@@ -11,7 +11,7 @@ import (
 	"github.com/cotton392/ctn_ai/markov"
 )
 
-func GetTwitterApi() *anaconda.TwitterApi{
+func GetTwitterApi() *anaconda.TwitterApi {
 	anaconda.SetConsumerKey(os.Getenv("CONSUMER_KEY"))
 	anaconda.SetConsumerSecret(os.Getenv("CONSUMER_SECRET"))
 	api := anaconda.NewTwitterApi(os.Getenv("TWITTER_ACCESS_TOKEN"), os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"))
@@ -19,15 +19,15 @@ func GetTwitterApi() *anaconda.TwitterApi{
 	return api
 }
 
-func GetTweetText(username string, tweetCount int) []string{
+func GetTweetText(username string, tweetCount int) []string {
 	res := []string{}
 	api := GetTwitterApi()
 	values := url.Values{}
 	values.Add("screen_name", username)
 	values.Add("count", strconv.Itoa(tweetCount))
-	values.Add("include_rts", "false")      // tweet取得に際しての設定
+	values.Add("include_rts", "false") // tweet取得に際しての設定
 
-	tweets, err := api.GetUserTimeline(values)  // ユーザータイムラインを取得
+	tweets, err := api.GetUserTimeline(values) // ユーザータイムラインを取得
 	if err != nil {
 		fmt.Printf("Tweet get error.")
 		os.Exit(-1)
@@ -39,14 +39,9 @@ func GetTweetText(username string, tweetCount int) []string{
 	return res
 }
 
-func TweetText(){
-	//tweets := GetTweetText("cotton392", 30)
-	strs := make([]string, 25)
-	for i := 0; i < 25; i++ {
-		fmt.Scan(&strs[i])
-	}
-
-	tweets := strs // GetTweetText("cotton392", 30)
+func TweetText() {
+	api := GetTwitterApi()
+	tweets := GetTweetText("cotton392", 30)
 	markovBlocks := [][]string{}
 	m, err := mecab.New("-Owakati")
 	if err != nil {
@@ -61,5 +56,11 @@ func TweetText(){
 	}
 
 	tweetElemSet := markov.MarkovChainExec(markovBlocks)
-	markov.TextGenerate(tweetElemSet)
+	text := markov.TextGenerate(tweetElemSet)
+	tweet, err := api.PostTweet(text, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(tweet.Text)
 }
