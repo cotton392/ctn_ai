@@ -18,3 +18,5 @@ jobs:
         CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
         TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
         TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET}}
+        CGO_LDFLAGS: "`mecab-config --libs`"
+        CGO_CFLAGS: "-I`mecab-config --inc-dir`"
