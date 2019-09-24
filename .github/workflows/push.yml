@@ -19,6 +19,7 @@ jobs:
         run: |
           go get -v -t -d ./...
           sudo apt install mecab
+          sudo apt install mecab-config
           sudo apt install libmecab-dev
           sudo apt install mecab-ipadic-utf8
 
