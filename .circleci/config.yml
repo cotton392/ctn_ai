@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  tweet:
+    docker:
+      - image: hystyl243/ctn_ai-container:1.0.0
+
+    working_directory: /go/ctn_ai
+    steps:
+      - run: go run main.py
+
+  reload:
+    docker:
+      - image: hystyl243/ctn_ai-container:1.0.0
+
+    working_directory: /go/ctn_ai
+    steps:
+      - checkout
+      - run: git pull origin master
+      - run: go build
+
+
+workflows:
+  version: 2
+  tweet_workflow:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - tweet
