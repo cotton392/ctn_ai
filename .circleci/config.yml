@@ -6,7 +6,7 @@ jobs:
 
     working_directory: /go/ctn_ai
     steps:
-      - run: go run main.py
+      - run: go run main.go
 
   reload:
     docker:
@@ -31,3 +31,7 @@ workflows:
                 - master
     jobs:
       - tweet
+
+  reload_workflow:
+    jobs:
+      - reload
