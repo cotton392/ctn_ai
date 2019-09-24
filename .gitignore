@@ -1,0 +1,4 @@
+.env
+go.sum
+
+/output
