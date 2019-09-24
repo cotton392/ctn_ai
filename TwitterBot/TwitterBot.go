@@ -62,5 +62,6 @@ func TweetText() {
 		panic(err)
 	}
 
+	fmt.Println("-----------------------------------")
 	fmt.Println(tweet.Text)
 }
