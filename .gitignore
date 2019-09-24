@@ -1,4 +1,5 @@
 .env
 go.sum
 
-/output
+.idea/
+output/
