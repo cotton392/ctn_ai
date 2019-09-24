@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and Tweet
         run: |
-          go build -v .
+          go build
           go run main.go
         env:
           GO111MODULE: on
