@@ -115,7 +115,7 @@ func TextGenerate(array []string) string {
 			continue
 		}
 
-		if len([]rune(ret)) >= 60 {
+		if len([]rune(ret)) >= 90 {
 			break
 		}
 
