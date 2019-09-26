@@ -15,7 +15,6 @@ jobs:
     working_directory: /go/ctn_ai
     steps:
       - checkout
-      - run: cat TwitterBot/TwitterBot.go
       - run: go build
 
 
