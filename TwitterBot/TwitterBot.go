@@ -34,6 +34,7 @@ func GetTweetText(username string, tweetCount int) []string {
 		os.Exit(-1)
 	}
 	for _, s := range tweets {
+		fmt.Println(s.FullText)
 		res = append(res, s.FullText)
 	} // resにツイート本文を追加
 
