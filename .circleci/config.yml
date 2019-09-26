@@ -15,6 +15,8 @@ jobs:
     working_directory: /go/ctn_ai
     steps:
       - checkout
+      - run: pwd
+      - run: ls -a
       - run: git pull origin master
       - run: go build
 
