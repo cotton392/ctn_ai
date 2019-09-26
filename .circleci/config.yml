@@ -6,16 +6,8 @@ jobs:
 
     working_directory: /go/ctn_ai
     steps:
-      - run: go run main.go
-
-  reload:
-    docker:
-      - image: hystyl243/ctn_ai-container:1.0.0
-
-    working_directory: /go/ctn_ai
-    steps:
       - checkout
-      - run: go build
+      - run: go run main.go
 
 
 workflows:
@@ -30,7 +22,3 @@ workflows:
                 - master
     jobs:
       - tweet
-
-  reload_workflow:
-    jobs:
-      - reload
