@@ -41,7 +41,7 @@ func GetTweetText(username string, tweetCount int) []string {
 }
 
 func TweetText() {
-	//api := GetTwitterApi()
+	api := GetTwitterApi()
 	tweets := GetTweetText("cotton392", 30)
 	markovBlocks := [][]string{}
 	m, err := mecab.New("-Owakati")
@@ -58,12 +58,11 @@ func TweetText() {
 
 	tweetElemSet := markov.MarkovChainExec(markovBlocks)
 	text := markov.TextGenerate(tweetElemSet)
-	//tweet, err := api.PostTweet(text, nil)
-	//if err != nil {
-	//	panic(err)
-	//}
+	tweet, err := api.PostTweet(text, nil)
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println("-----------------------------------")
-	//fmt.Println(tweet.Text)
-	fmt.Println(text)
+	fmt.Println(tweet.Text)
 }
