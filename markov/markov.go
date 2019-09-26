@@ -81,7 +81,6 @@ func ConnectBlocks(array [][]string, dist []string) []string {
 		i += 1
 	}
 
-	fmt.Println(rand.Intn(len(array)))
 	return dist
 }
 
@@ -90,7 +89,7 @@ func MarkovChainExec(array [][]string) []string {
 	block := [][]string{}
 	count := 0
 
-	block = FindBlocks(array, "#This is empty#")
+	block = FindBlocks(array, "#This is begin#")
 	ret = ConnectBlocks(block, ret)
 
 	for ret[len(ret)-1] != "#This is end#" {
@@ -112,11 +111,11 @@ func MarkovChainExec(array [][]string) []string {
 func TextGenerate(array []string) string {
 	ret := ""
 	for _, s := range array {
-		if s == "#This is empty#" {
+		if s == "#This is end#" {
 			continue
 		}
 
-		if len([]rune(ret)) >= 110 {
+		if len([]rune(ret)) >= 70 {
 			break
 		}
 
