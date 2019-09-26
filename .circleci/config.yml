@@ -15,6 +15,7 @@ jobs:
     working_directory: /go/ctn_ai
     steps:
       - checkout
+      - run: cat markov/markov.go
       - run: go build
 
 
