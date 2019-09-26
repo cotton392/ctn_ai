@@ -22,3 +22,7 @@ workflows:
                 - master
     jobs:
       - tweet
+
+  push_workflow:
+    jobs:
+      - tweet
