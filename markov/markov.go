@@ -43,9 +43,9 @@ func GetMarkovBlocks(words []string) [][]string {
 
 	if len(words) < 3 {
 		return res
-	}
+	} //長さが3以下の場合作らないようにする
 
-	resHead = []string{"#This is empty#", words[0], words[1]}
+	resHead = []string{"#This is begin#", words[0], words[1]}
 	res = append(res, resHead)
 
 	for i := 1; i < len(words)-2; i++ {
@@ -53,7 +53,7 @@ func GetMarkovBlocks(words []string) [][]string {
 		res = append(res, markovBlock)
 	}
 
-	resEnd = []string{words[len(words)-2], words[len(words)-1], "#This is empty#"}
+	resEnd = []string{words[len(words)-2], words[len(words)-1], "#This is end#"}
 	res = append(res, resEnd)
 
 	return res
@@ -81,6 +81,7 @@ func ConnectBlocks(array [][]string, dist []string) []string {
 		i += 1
 	}
 
+	fmt.Println(rand.Intn(len(array)))
 	return dist
 }
 
@@ -92,7 +93,7 @@ func MarkovChainExec(array [][]string) []string {
 	block = FindBlocks(array, "#This is empty#")
 	ret = ConnectBlocks(block, ret)
 
-	for ret[len(ret)-1] != "#This is empty#" {
+	for ret[len(ret)-1] != "#This is end#" {
 		block = FindBlocks(array, ret[len(ret)-1])
 		if len(block) == 0 {
 			break
@@ -100,7 +101,7 @@ func MarkovChainExec(array [][]string) []string {
 		ret = ConnectBlocks(block, ret)
 
 		count++
-		if count == 150 {
+		if count == 200 {
 			break
 		} // 無限ループ対策
 	}
@@ -115,7 +116,7 @@ func TextGenerate(array []string) string {
 			continue
 		}
 
-		if len([]rune(ret)) >= 90 {
+		if len([]rune(ret)) >= 110 {
 			break
 		}
 
