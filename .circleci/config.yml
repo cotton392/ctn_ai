@@ -25,4 +25,4 @@ workflows:
 
   push_workflow:
     jobs:
-      - tweet
+      - tweetest -v ./...
